@@ -1,0 +1,33 @@
+[{
+    "name": "TSLA",
+    "price": 433.95,
+    "owned": 0
+  }, {
+    "name": "SHOP",
+    "price": 1096.00,
+    "owned": 0
+  }, {
+    "name": "AMZN",
+    "price": 3286.65,
+    "owned": 0
+  }, {
+    "name": "GS",
+    "price": 207.54,
+    "owned": 0
+  }, {
+    "name": "FB",
+    "price": 264.45,
+    "owned": 0
+  }, {
+    "name": "GLD",
+    "price": 181.08,
+    "owned": 0
+  }, {
+    "name": "SPY",
+    "price": 346.85,
+    "owned": 0
+  }, {
+    "name": "AAPL",
+    "price": 116.97,
+    "owned": 0
+  }]
