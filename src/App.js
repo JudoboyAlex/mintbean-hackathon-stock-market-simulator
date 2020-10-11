@@ -25,44 +25,31 @@ function App() {
       color: theme.palette.text.secondary,
     },
   }));
-  const classes = useStyles();
 
+  const classes = useStyles();
 
   return (
     <div className={classes.root}>
-    <Grid container spacing={3}>
-      <Grid item xs={12}>
-        <Header />
+      <Grid container spacing={3}>
+        <Grid item xs={12}>
+          <Header />
+        </Grid>
+        <Grid item xs={12}>
+          <MarketTime />
+        </Grid>
+        <Grid item xs={12}>
+          <Balance />
+        </Grid>
+        <Grid item xs={6}>
+          <StockQuotesContainer />
+        </Grid>
+        <Grid item xs={6}>
+          <StockOwnedContainer />
+        </Grid>
       </Grid>
-      <Grid item xs={12}>
-        <MarketTime />
-      </Grid>
-      <Grid item xs={12}>
-        <Balance />
-      </Grid>
-      <Grid item xs={6}>
-        <StockQuotesContainer />
-      </Grid>
-      <Grid item xs={6}>
-        <StockOwnedContainer />
-      </Grid>
-    </Grid>
   </div>
 
   );
 }
 
 export default App;
-
-// <div>
-// <Header />
-// <MarketTime />
-// <Balance />
-// {stockData.map((stock,index) =>
-// <StockQuotes 
-// key = {index}
-// name = {stock.name}
-// price = {stock.price}
-// />
-// )}
-// </div>
