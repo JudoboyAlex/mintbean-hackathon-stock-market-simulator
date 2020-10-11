@@ -4,7 +4,7 @@ import MarketTime from './components/MarketTime';
 import Balance from './components/Balance';
 import StockQuotes from './components/StockQuotes';
 import StockQuotesContainer from './components/StockQuotesContainer';
-import StockOwnedContainer from './components/StockOwnedContainer';
+import StocksOwnedContainer from './components/StocksOwnedContainer';
 import stockData from './util/stockData';
 import 'normalize.css';
 import './App.css';
@@ -44,7 +44,7 @@ function App() {
           <StockQuotesContainer />
         </Grid>
         <Grid item xs={6}>
-          <StockOwnedContainer />
+          <StocksOwnedContainer />
         </Grid>
       </Grid>
   </div>

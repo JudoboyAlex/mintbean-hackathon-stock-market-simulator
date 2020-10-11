@@ -10,8 +10,25 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import stockData from '../util/stockData';
+import { green } from '@material-ui/core/colors';
 
-const StockQuotes = ({name, price}) => {
+const StockQuotes = () => {
+
+    const [shares, setShares] = useState(stockData);
+    const [sharesBought, setSharesBought] = useState("");
+
+    const handleChange =(event, index) => {
+        let values = stockData;
+        values[index].owned = parseInt(event.target.value);
+        setShares(values);
+      }
+    
+    const handleClick = (event) => {
+        event.preventDefault();
+        setSharesBought(shares.filter((data) => data.owned))
+    }
+
+    console.log(sharesBought)
 
     const StyledTableCell = withStyles((theme) => ({
     head: {
@@ -39,11 +56,13 @@ const StockQuotes = ({name, price}) => {
             minWidth: 700,
             },
         }));
+
     const classes = useStyles();
+    
     const theme = createMuiTheme({
-        palette: {
-            primary: {main: '#00e676'},
-        },
+            palette: {
+                primary: {main: '#00e676'},
+            },
         });
 
     return(
@@ -53,8 +72,8 @@ const StockQuotes = ({name, price}) => {
                     <TableRow>
                         <StyledTableCell>Stock Name</StyledTableCell>
                         <StyledTableCell align="right">Current Price</StyledTableCell>
-                        <StyledTableCell align="right">Shares To Buy</StyledTableCell>
-                        <StyledTableCell align="right">Action</StyledTableCell>
+                        <StyledTableCell align="right">Shares</StyledTableCell>
+                        <StyledTableCell align="right">Order</StyledTableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -64,10 +83,10 @@ const StockQuotes = ({name, price}) => {
                             {stock.name}
                         </StyledTableCell>
                         <StyledTableCell align="right">${stock.price}</StyledTableCell>
-                        <StyledTableCell align="right"><input></input></StyledTableCell>
+                        <StyledTableCell align="right"><input type="number" onChange={event => handleChange(event, index)}></input></StyledTableCell>
                         <StyledTableCell align="right">
                             <ThemeProvider theme={theme}>
-                                <Button variant="contained" color="primary" className={classes.margin}>
+                                <Button variant="contained" color="primary" className={classes.margin} onClick={handleClick}>
                                     BUY
                                 </Button>
                             </ThemeProvider>
@@ -81,18 +100,3 @@ const StockQuotes = ({name, price}) => {
 }
 
 export default StockQuotes;
-
-// <div>
-// <ul>
-//     <li>{name}</li>
-//     <li>${price}</li>
-//     <li><input></input></li>
-//     <li>
-    //     <ThemeProvider theme={theme}>
-    //     <Button variant="contained" color="primary" className={classes.margin}>
-    //         BUY
-    //     </Button>
-    // </ThemeProvider>
-//     </li>
-// </ul>
-// </div>
