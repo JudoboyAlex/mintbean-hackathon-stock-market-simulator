@@ -16,16 +16,6 @@ const StockQuotes = ({name, price}) => {
           primary: {main: '#00e676'},
         },
       });
-    // useEffect(() => {
-    //     fetchStocks()
-    // },[])
-
-    // const fetchStocks = async() => {
-    //     const res = await(stockData)
-    //     const data = await res.json()
-    // }
-
-   
 
     return(
         <div>
