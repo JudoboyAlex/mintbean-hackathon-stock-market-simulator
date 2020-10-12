@@ -2,13 +2,10 @@ import React from 'react';
 import Header from './components/Header';
 import MarketTime from './components/MarketTime';
 import Balance from './components/Balance';
-import StockQuotes from './components/StockQuotes';
 import StockQuotesContainer from './components/StockQuotesContainer';
 import StocksOwnedContainer from './components/StocksOwnedContainer';
-import stockData from './util/stockData';
 import 'normalize.css';
 import './App.css';
-
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';

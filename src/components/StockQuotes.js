@@ -11,11 +11,13 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import stockData from '../util/stockData';
 import { green } from '@material-ui/core/colors';
+import { useDispatch, useSelector } from 'react-redux';
 
 const StockQuotes = () => {
 
     const [shares, setShares] = useState(stockData);
     const [sharesBought, setSharesBought] = useState("");
+    const dispatch = useDispatch();
 
     const handleChange =(event, index) => {
         let values = stockData;
@@ -25,7 +27,8 @@ const StockQuotes = () => {
     
     const handleClick = (event) => {
         event.preventDefault();
-        setSharesBought(shares.filter((data) => data.owned))
+        // setSharesBought(shares.filter((share) => share.owned))
+        dispatch(shares);
     }
 
     console.log(sharesBought)
@@ -58,7 +61,7 @@ const StockQuotes = () => {
         }));
 
     const classes = useStyles();
-    
+
     const theme = createMuiTheme({
             palette: {
                 primary: {main: '#00e676'},
