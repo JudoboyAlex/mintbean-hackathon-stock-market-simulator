@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './StockQuotes.css'; 
 import { createMuiTheme, withStyles, makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -10,45 +10,42 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import stockData from '../util/stockData';
-import { green } from '@material-ui/core/colors';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { getStocksOwned } from '../slices/stocksOwnedSlice';
 
 const StockQuotes = () => {
 
-    const [shares, setShares] = useState(stockData);
-    const [sharesBought, setSharesBought] = useState("");
+    const [sharesToBuy, setSharesToBuy] = useState(stockData);
     const dispatch = useDispatch();
-
-    const handleChange =(event, index) => {
-        let values = stockData;
-        values[index].owned = parseInt(event.target.value);
-        setShares(values);
-      }
+    let values = stockData;
     
-    const handleClick = (event) => {
+    const handleChange = (event, index) => {
+        values[index].owned = parseInt(event.target.value);
+        setSharesToBuy(stockData);
+    }
+    
+    const handleClick = (event, index) => {
         event.preventDefault();
-        // setSharesBought(shares.filter((share) => share.owned))
-        dispatch(shares);
+        dispatch(getStocksOwned(sharesToBuy));
+        // values[index].owned = 0;
     }
 
-    console.log(sharesBought)
-
     const StyledTableCell = withStyles((theme) => ({
-    head: {
-        backgroundColor: theme.palette.common.black,
-        color: theme.palette.common.white,
-    },
-    body: {
-        fontSize: 14,
-    },
+        head: {
+            backgroundColor: theme.palette.common.black,
+            color: theme.palette.common.white,
+        },
+        body: {
+            fontSize: 14,
+        },
     }))(TableCell);
 
     const StyledTableRow = withStyles((theme) => ({
-    root: {
-        '&:nth-of-type(odd)': {
-        backgroundColor: theme.palette.action.hover,
+        root: {
+            '&:nth-of-type(odd)': {
+            backgroundColor: theme.palette.action.hover,
+            },
         },
-    },
     }))(TableRow);
 
     const useStyles = makeStyles((theme) => ({
@@ -58,7 +55,7 @@ const StockQuotes = () => {
         table: {
             minWidth: 700,
             },
-        }));
+    }));
 
     const classes = useStyles();
 
@@ -89,7 +86,7 @@ const StockQuotes = () => {
                         <StyledTableCell align="right"><input type="number" onChange={event => handleChange(event, index)}></input></StyledTableCell>
                         <StyledTableCell align="right">
                             <ThemeProvider theme={theme}>
-                                <Button variant="contained" color="primary" className={classes.margin} onClick={handleClick}>
+                                <Button variant="contained" color="primary" className={classes.margin} onClick={event => handleClick(event, index)}>
                                     BUY
                                 </Button>
                             </ThemeProvider>

@@ -8,10 +8,9 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import stockData from '../util/stockData';
 
-const StocksOwned = () => {
-
+const StocksOwned = ({stockInfo}) => {
+    console.log(stockInfo)
     const StyledTableCell = withStyles((theme) => ({
         head: {
             backgroundColor: theme.palette.common.black,
@@ -41,11 +40,13 @@ const StocksOwned = () => {
         const classes = useStyles();
         const theme = createMuiTheme({
                 palette: {
+                    primary: {main: '#00e676'},
                     secondary: {main: '#f50057'},
                 },
             });
-
-    return(
+    
+   
+    return  (
             <TableContainer component={Paper}>
                 <Table className={classes.table} aria-label="customized table">
                     <TableHead>
@@ -56,14 +57,15 @@ const StocksOwned = () => {
                             <StyledTableCell align="right">Order</StyledTableCell>
                         </TableRow>
                     </TableHead>
+                    { {stockInfo} ? 
                     <TableBody>
-                    {stockData.map((stock, index) => (
+                    {stockInfo.map((stock, index) => (
                         <StyledTableRow key = {index} >
                             <StyledTableCell component="th" scope="row">
                                 {stock.name}
                             </StyledTableCell>
                             <StyledTableCell align="right">${stock.price}</StyledTableCell>
-                            <StyledTableCell align="right"><input></input></StyledTableCell>
+                            <StyledTableCell align="right">{stock.owned}</StyledTableCell>
                             <StyledTableCell align="right">
                                 <ThemeProvider theme={theme}>
                                     <Button variant="contained" color="secondary" className={classes.margin}>
@@ -74,9 +76,12 @@ const StocksOwned = () => {
                         </StyledTableRow>
                         ))}
                     </TableBody>
+                    :
+                    <TableBody> </TableBody>                
+                    }
                 </Table>
             </TableContainer>
-    )
-}
+        ) 
+}   
 
 export default StocksOwned;

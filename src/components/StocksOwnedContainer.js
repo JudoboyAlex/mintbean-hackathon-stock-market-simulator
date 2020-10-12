@@ -4,12 +4,12 @@ import { useSelector } from 'react-redux';
 import { selectStocksOwned } from '../slices/stocksOwnedSlice';
 
 const StocksOwnedContainer = () => {
-    const stocksOwned = useSelector(selectStocksOwned);
-    console.log(stocksOwned);
+    const stockInfo= useSelector(selectStocksOwned);
+
     return(
         <div>
             <h3>Stocks Owned</h3>
-            <StocksOwned />
+            <StocksOwned stockInfo={stockInfo} />
         </div>
     )
 }
