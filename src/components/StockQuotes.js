@@ -17,17 +17,28 @@ const StockQuotes = () => {
 
     const [sharesToBuy, setSharesToBuy] = useState(stockData);
     const dispatch = useDispatch();
-    let values = stockData;
-    
+
+    const updateOwnedValue = (index, owned) => {
+        setSharesToBuy((sharesToBuy) =>
+            sharesToBuy.map((share, i) =>
+            i === index
+                ? {
+                    ...share,
+                    owned
+                }
+                : share
+            )
+        );
+    };
+
     const handleChange = (event, index) => {
-        values[index].owned = parseInt(event.target.value);
-        setSharesToBuy(stockData);
+        updateOwnedValue(index, parseInt(event.target.value));
     }
-    
+
     const handleClick = (event, index) => {
         event.preventDefault();
         dispatch(getStocksOwned(sharesToBuy));
-        // values[index].owned = 0;
+        updateOwnedValue(index, 0);
     }
 
     const StyledTableCell = withStyles((theme) => ({
@@ -77,13 +88,13 @@ const StockQuotes = () => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                {stockData.map((stock, index) => (
+                {sharesToBuy.map((stock, index) => (
                     <StyledTableRow key = {index} >
                         <StyledTableCell component="th" scope="row">
                             {stock.name}
                         </StyledTableCell>
                         <StyledTableCell align="right">${stock.price}</StyledTableCell>
-                        <StyledTableCell align="right"><input type="number" onChange={event => handleChange(event, index)}></input></StyledTableCell>
+                        <StyledTableCell align="right"><input type="number" value ={stock.owned} onChange={event => handleChange(event, index)}></input></StyledTableCell>
                         <StyledTableCell align="right">
                             <ThemeProvider theme={theme}>
                                 <Button variant="contained" color="primary" className={classes.margin} onClick={event => handleClick(event, index)}>
