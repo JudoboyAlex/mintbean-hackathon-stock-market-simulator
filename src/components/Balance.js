@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
 
-const Balance = () => {
+const Balance = ({availableFunds}) => {
 
     return(
         <div>
             <div>
-                <h2>Your Balance: $100,000</h2>
+                <h2>Your Balance: ${availableFunds}</h2>
             </div>
         </div>
     )

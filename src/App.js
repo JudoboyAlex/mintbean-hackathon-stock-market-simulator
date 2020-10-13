@@ -1,4 +1,4 @@
-import React from 'react';
+import React,  { useState }  from 'react';
 import Header from './components/Header';
 import MarketTime from './components/MarketTime';
 import Balance from './components/Balance';
@@ -12,6 +12,9 @@ import Grid from '@material-ui/core/Grid';
 
 
 function App() {
+
+  const [availableFunds, setAvailableFunds] = useState(100000)
+
   const useStyles = makeStyles((theme) => ({
     root: {
       flexGrow: 1,
@@ -35,13 +38,13 @@ function App() {
           <MarketTime />
         </Grid>
         <Grid item xs={12}>
-          <Balance />
+          <Balance availableFunds={availableFunds} />
         </Grid>
         <Grid item xs={6}>
-          <StockQuotesContainer />
+          <StockQuotesContainer availableFunds={availableFunds} setAvailableFunds={setAvailableFunds} />
         </Grid>
         <Grid item xs={6}>
-          <StocksOwnedContainer />
+          <StocksOwnedContainer availableFunds={availableFunds} setAvailableFunds={setAvailableFunds} />
         </Grid>
       </Grid>
   </div>

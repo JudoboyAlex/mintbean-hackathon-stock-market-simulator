@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './StockQuotes.css'; 
 import { createMuiTheme, withStyles, makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -13,11 +13,12 @@ import stockData from '../util/stockData';
 import { useDispatch } from 'react-redux';
 import { getStocksOwned } from '../slices/stocksOwnedSlice';
 
-const StockQuotes = () => {
+const StockQuotes = ({ availableFunds, setAvailableFunds }) => {
 
     const [sharesToBuy, setSharesToBuy] = useState(stockData);
-    const dispatch = useDispatch();
 
+    const dispatch = useDispatch();
+    
     const updateOwnedValue = (index, owned) => {
         setSharesToBuy((sharesToBuy) =>
             sharesToBuy.map((share, i) =>
@@ -34,11 +35,20 @@ const StockQuotes = () => {
     const handleChange = (event, index) => {
         updateOwnedValue(index, parseInt(event.target.value));
     }
-
+   
     const handleClick = (event, index) => {
         event.preventDefault();
         dispatch(getStocksOwned(sharesToBuy));
         updateOwnedValue(index, 0);
+        updateAvailableFunds();
+    }
+    console.log(availableFunds);
+
+    const updateAvailableFunds = () => {
+        let stockBought = sharesToBuy.filter((stock) => 
+            stock.owned
+        )
+        setAvailableFunds(availableFunds - stockBought[0].price * stockBought[0].owned);
     }
 
     const StyledTableCell = withStyles((theme) => ({
@@ -76,7 +86,7 @@ const StockQuotes = () => {
             },
         });
 
-    return(
+    return( 
         <TableContainer component={Paper}>
             <Table className={classes.table} aria-label="customized table">
                 <TableHead>
