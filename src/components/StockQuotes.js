@@ -107,7 +107,9 @@ const StockQuotes = ({ availableFunds, setAvailableFunds }) => {
                         <StyledTableCell align="right"><input type="number" value ={stock.owned} onChange={event => handleChange(event, index)}></input></StyledTableCell>
                         <StyledTableCell align="right">
                             <ThemeProvider theme={theme}>
-                                <Button variant="contained" color="primary" className={classes.margin} onClick={event => handleClick(event, index)}>
+                                <Button variant="contained" color="primary" className={classes.margin} 
+                                disabled={stock.owned === 0 || !stock.owned}
+                                onClick={event => handleClick(event, index)}>
                                     BUY
                                 </Button>
                             </ThemeProvider>

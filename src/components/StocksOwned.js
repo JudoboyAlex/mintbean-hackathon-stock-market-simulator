@@ -10,7 +10,38 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
 const StocksOwned = ({stockInfo}) => {
+    const [ownedStock, setOwnedStock] = useState([]);
     console.log(stockInfo)
+
+    const newStock = stock => {
+        const newStocks = [ ...ownedStock, {stock}];
+        setOwnedStock(newStocks)
+    }
+    
+    useEffect(() => {
+        if(stockInfo[0]){
+        newStock(stockInfo)
+        } else {
+            setOwnedStock([]);
+        }
+    },[stockInfo])
+
+    console.log(ownedStock)
+
+    // const stockList= () => {
+    //     console.log(ownedStock)
+    //     ownedStock.map((myObj)=>{
+    //         return myObj.stock.map((oneObj)=>{
+    //             return (<div>{oneObj.name}</div>)
+    //        })
+    //     })
+    // }
+
+    const handleClick = (event, index) => {
+        event.preventDefault();
+
+    }
+
     const StyledTableCell = withStyles((theme) => ({
         head: {
             backgroundColor: theme.palette.common.black,
@@ -45,7 +76,6 @@ const StocksOwned = ({stockInfo}) => {
                 },
             });
     
-   
     return  (
             <TableContainer component={Paper}>
                 <Table className={classes.table} aria-label="customized table">
@@ -57,24 +87,28 @@ const StocksOwned = ({stockInfo}) => {
                             <StyledTableCell align="right">Order</StyledTableCell>
                         </TableRow>
                     </TableHead>
-                    { {stockInfo} ? 
+                    { {ownedStock} ? 
                     <TableBody>
-                    {stockInfo.map((stock, index) => (
-                        <StyledTableRow key = {index} >
-                            <StyledTableCell component="th" scope="row">
-                                {stock.name}
-                            </StyledTableCell>
-                            <StyledTableCell align="right">${stock.price}</StyledTableCell>
-                            <StyledTableCell align="right">{stock.owned}</StyledTableCell>
-                            <StyledTableCell align="right">
-                                <ThemeProvider theme={theme}>
-                                    <Button variant="contained" color="secondary" className={classes.margin}>
-                                        SELL
-                                    </Button>
-                                </ThemeProvider>
-                            </StyledTableCell>
-                        </StyledTableRow>
-                        ))}
+                    {ownedStock.map((myStocks)=>{
+                        return myStocks.stock.map((myStock,index)=>{
+                            return (
+                                <StyledTableRow key = {index} >
+                                    <StyledTableCell component="th" scope="row">
+                                        {myStock.name}
+                                    </StyledTableCell>
+                                    <StyledTableCell align="right">${myStock.price}</StyledTableCell>
+                                    <StyledTableCell align="right">{myStock.owned}</StyledTableCell>
+                                    <StyledTableCell align="right">
+                                        <ThemeProvider theme={theme}>
+                                            <Button variant="contained" color="secondary" className={classes.margin} onClick={event => handleClick(event, index)}>
+                                                SELL
+                                            </Button>
+                                        </ThemeProvider>
+                                    </StyledTableCell>
+                                </StyledTableRow>       
+                                )
+                        })
+                    })}
                     </TableBody>
                     :
                     <TableBody> </TableBody>                
