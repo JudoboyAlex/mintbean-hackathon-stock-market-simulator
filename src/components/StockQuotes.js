@@ -13,6 +13,24 @@ import stockData from '../util/stockData';
 import { useDispatch } from 'react-redux';
 import { getStocksOwned } from '../slices/stocksOwnedSlice';
 
+const StyledTableCell = withStyles((theme) => ({
+    head: {
+        backgroundColor: theme.palette.common.black,
+        color: theme.palette.common.white,
+    },
+    body: {
+        fontSize: 14,
+    },
+}))(TableCell);
+
+const StyledTableRow = withStyles((theme) => ({
+    root: {
+        '&:nth-of-type(odd)': {
+        backgroundColor: theme.palette.action.hover,
+        },
+    },
+}))(TableRow);
+
 const StockQuotes = ({ availableFunds, setAvailableFunds }) => {
 
     const [sharesToBuy, setSharesToBuy] = useState(stockData);
@@ -38,36 +56,25 @@ const StockQuotes = ({ availableFunds, setAvailableFunds }) => {
    
     const handleClick = (event, index) => {
         event.preventDefault();
-        dispatch(getStocksOwned(sharesToBuy));
-        updateOwnedValue(index, 0);
         updateAvailableFunds();
+        updateOwnedValue(index, 0);
     }
-    console.log(availableFunds);
 
     const updateAvailableFunds = () => {
         let stockBought = sharesToBuy.filter((stock) => 
             stock.owned
         )
-        setAvailableFunds(availableFunds - stockBought[0].price * stockBought[0].owned);
+        let availableFundsCalculated = availableFunds - stockBought[0].price * stockBought[0].owned
+        
+        if(availableFundsCalculated < 0){
+            alert("Available Funds Cannot Be Negative Balance")  
+        } else {
+            dispatch(getStocksOwned(sharesToBuy));
+            setAvailableFunds(availableFundsCalculated);
+        }
     }
 
-    const StyledTableCell = withStyles((theme) => ({
-        head: {
-            backgroundColor: theme.palette.common.black,
-            color: theme.palette.common.white,
-        },
-        body: {
-            fontSize: 14,
-        },
-    }))(TableCell);
-
-    const StyledTableRow = withStyles((theme) => ({
-        root: {
-            '&:nth-of-type(odd)': {
-            backgroundColor: theme.palette.action.hover,
-            },
-        },
-    }))(TableRow);
+    const formattedShareOwnedValue = sharesToBuy.owned == 0 ? sharesToBuy.owned == "" : sharesToBuy.owned
 
     const useStyles = makeStyles((theme) => ({
         margin: {
@@ -104,7 +111,7 @@ const StockQuotes = ({ availableFunds, setAvailableFunds }) => {
                             {stock.name}
                         </StyledTableCell>
                         <StyledTableCell align="right">${stock.price}</StyledTableCell>
-                        <StyledTableCell align="right"><input type="number" value ={stock.owned} onChange={event => handleChange(event, index)}></input></StyledTableCell>
+                        <StyledTableCell align="right"><input type="number" value ={formattedShareOwnedValue} onChange={event => handleChange(event, index)}></input></StyledTableCell>
                         <StyledTableCell align="right">
                             <ThemeProvider theme={theme}>
                                 <Button variant="contained" color="primary" className={classes.margin} 

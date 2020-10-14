@@ -5,7 +5,7 @@ const StockOwnedContainer = ({availableFunds, setAvailableFunds}) => {
 
     return(
         <div>
-            <h3>Stocks Available</h3>
+            <h3>Buy Stocks</h3>
              <StockQuotes availableFunds={availableFunds} setAvailableFunds={setAvailableFunds}/>           
         </div>
     )

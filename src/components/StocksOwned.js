@@ -9,13 +9,42 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
-const StocksOwned = ({stockInfo}) => {
+const StocksOwned = ({stockInfo, availableFunds, setAvailableFunds}) => {
     const [ownedStock, setOwnedStock] = useState([]);
     console.log(stockInfo)
 
     const newStock = stock => {
         const newStocks = [ ...ownedStock, {stock}];
         setOwnedStock(newStocks)
+    }
+
+    const sellStock = index => {
+        const newStocks = [...ownedStock];
+
+        let soldStock =
+        newStocks.map((stockList, i) => {
+            return stockList.stock.filter(() =>{
+                return index == i;
+            })
+        })
+
+        let soldAmount = availableFunds + soldStock[0][0].price * soldStock[0][0].owned
+        
+        let deletedStock = 
+        newStocks.map((stockList, i) => {
+            return stockList.stock.filter(() =>{
+                return index != i;
+            })
+        })
+
+        let formattedDeletedStock = Object
+        .keys(deletedStock)
+        .map(index => ({
+            'stock': deletedStock[index]
+        }));
+
+        setAvailableFunds(soldAmount)
+        setOwnedStock(formattedDeletedStock)
     }
     
     useEffect(() => {
@@ -28,18 +57,9 @@ const StocksOwned = ({stockInfo}) => {
 
     console.log(ownedStock)
 
-    // const stockList= () => {
-    //     console.log(ownedStock)
-    //     ownedStock.map((myObj)=>{
-    //         return myObj.stock.map((oneObj)=>{
-    //             return (<div>{oneObj.name}</div>)
-    //        })
-    //     })
-    // }
-
     const handleClick = (event, index) => {
         event.preventDefault();
-
+        sellStock(index);
     }
 
     const StyledTableCell = withStyles((theme) => ({
@@ -89,8 +109,8 @@ const StocksOwned = ({stockInfo}) => {
                     </TableHead>
                     { {ownedStock} ? 
                     <TableBody>
-                    {ownedStock.map((myStocks)=>{
-                        return myStocks.stock.map((myStock,index)=>{
+                    {ownedStock.map((myStocks,index)=>{
+                        return myStocks.stock.map((myStock)=>{
                             return (
                                 <StyledTableRow key = {index} >
                                     <StyledTableCell component="th" scope="row">
