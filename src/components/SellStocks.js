@@ -9,9 +9,8 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
-const StocksOwned = ({stockInfo, availableFunds, setAvailableFunds}) => {
+const SellStocks = ({stockInfo, availableFunds, setAvailableFunds}) => {
     const [ownedStock, setOwnedStock] = useState([]);
-    console.log(stockInfo)
 
     const newStock = stock => {
         const newStocks = [ ...ownedStock, {stock}];
@@ -27,8 +26,10 @@ const StocksOwned = ({stockInfo, availableFunds, setAvailableFunds}) => {
                 return index == i;
             })
         })
+    
+        let [filteredStock] = soldStock.filter(value => value.length)
 
-        let soldAmount = availableFunds + soldStock[0][0].price * soldStock[0][0].owned
+        let soldAmount = availableFunds + filteredStock[0].price * filteredStock[0].owned
         
         let deletedStock = 
         newStocks.map((stockList, i) => {
@@ -54,8 +55,6 @@ const StocksOwned = ({stockInfo, availableFunds, setAvailableFunds}) => {
             setOwnedStock([]);
         }
     },[stockInfo])
-
-    console.log(ownedStock)
 
     const handleClick = (event, index) => {
         event.preventDefault();
@@ -126,7 +125,7 @@ const StocksOwned = ({stockInfo, availableFunds, setAvailableFunds}) => {
                                         </ThemeProvider>
                                     </StyledTableCell>
                                 </StyledTableRow>       
-                                )
+                            )
                         })
                     })}
                     </TableBody>
@@ -138,4 +137,4 @@ const StocksOwned = ({stockInfo, availableFunds, setAvailableFunds}) => {
         ) 
 }   
 
-export default StocksOwned;
+export default SellStocks;

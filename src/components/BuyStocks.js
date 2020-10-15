@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './StockQuotes.css'; 
+import './BuyStocks.css'; 
 import { createMuiTheme, withStyles, makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Table from '@material-ui/core/Table';
@@ -31,7 +31,7 @@ const StyledTableRow = withStyles((theme) => ({
     },
 }))(TableRow);
 
-const StockQuotes = ({ availableFunds, setAvailableFunds }) => {
+const BuyStocks = ({ availableFunds, setAvailableFunds }) => {
 
     const [sharesToBuy, setSharesToBuy] = useState(stockData);
 
@@ -49,6 +49,24 @@ const StockQuotes = ({ availableFunds, setAvailableFunds }) => {
             )
         );
     };
+
+    const updateChangingStockPrice = () => {
+        let randomPriceMultiplier = Math.random() * 1 + 1;
+        let randomMathOperator = ["*", "/"][Math.floor(Math.random()*2)]
+        setSharesToBuy((sharesToBuy) =>
+            sharesToBuy.map((p) => {
+                return { ... p,
+                    price: eval(p.price + randomMathOperator + randomPriceMultiplier).toFixed(2)
+                }
+            })
+        )
+    }
+
+    useEffect(()=> {
+        setInterval(function(){updateChangingStockPrice()},3000);
+    },[])
+
+    console.log(sharesToBuy)
 
     const handleChange = (event, index) => {
         updateOwnedValue(index, parseInt(event.target.value));
@@ -129,4 +147,4 @@ const StockQuotes = ({ availableFunds, setAvailableFunds }) => {
     )
 }
 
-export default StockQuotes;
+export default BuyStocks;

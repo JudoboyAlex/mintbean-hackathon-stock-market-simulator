@@ -1,9 +1,8 @@
 import React,  { useState }  from 'react';
 import Header from './components/Header';
-import MarketTime from './components/MarketTime';
 import Balance from './components/Balance';
-import StockQuotesContainer from './components/StockQuotesContainer';
-import StocksOwnedContainer from './components/StocksOwnedContainer';
+import BuyStocksContainer from './components/BuyStocksContainer';
+import SellStocksContainer from './components/SellStocksContainer';
 import 'normalize.css';
 import './App.css';
 import { makeStyles } from '@material-ui/core/styles';
@@ -35,16 +34,13 @@ function App() {
           <Header />
         </Grid>
         <Grid item xs={12}>
-          <MarketTime />
-        </Grid>
-        <Grid item xs={12}>
           <Balance availableFunds={availableFunds} />
         </Grid>
         <Grid item xs={6}>
-          <StockQuotesContainer availableFunds={availableFunds} setAvailableFunds={setAvailableFunds} />
+          <BuyStocksContainer availableFunds={availableFunds} setAvailableFunds={setAvailableFunds} />
         </Grid>
         <Grid item xs={6}>
-          <StocksOwnedContainer availableFunds={availableFunds} setAvailableFunds={setAvailableFunds} />
+          <SellStocksContainer availableFunds={availableFunds} setAvailableFunds={setAvailableFunds} />
         </Grid>
       </Grid>
   </div>
