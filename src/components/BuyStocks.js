@@ -15,7 +15,7 @@ import { getStocksOwned } from '../slices/stocksOwnedSlice';
 
 const StyledTableCell = withStyles((theme) => ({
     head: {
-        backgroundColor: theme.palette.common.black,
+        backgroundColor: '#28df99',
         color: theme.palette.common.white,
     },
     body: {
@@ -116,7 +116,7 @@ const BuyStocks = ({ availableFunds, setAvailableFunds }) => {
             <Table className={classes.table} aria-label="customized table">
                 <TableHead>
                     <TableRow>
-                        <StyledTableCell>Stock Name</StyledTableCell>
+                        <StyledTableCell >Stock Name</StyledTableCell>
                         <StyledTableCell align="right">Current Price</StyledTableCell>
                         <StyledTableCell align="right">Shares</StyledTableCell>
                         <StyledTableCell align="right">Order</StyledTableCell>

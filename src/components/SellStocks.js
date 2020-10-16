@@ -63,7 +63,7 @@ const SellStocks = ({stockInfo, availableFunds, setAvailableFunds}) => {
 
     const StyledTableCell = withStyles((theme) => ({
         head: {
-            backgroundColor: theme.palette.common.black,
+            backgroundColor: '#ffc1c8',
             color: theme.palette.common.white,
         },
         body: {

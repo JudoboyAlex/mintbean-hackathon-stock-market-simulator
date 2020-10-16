@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react';
+import './Balance.css';
 
 const Balance = ({availableFunds}) => {
 
@@ -7,7 +8,7 @@ const Balance = ({availableFunds}) => {
     return(
         <div>
             <div>
-                <h2>Your Balance: ${roundedAvilableFunds}</h2>
+                <h2 className="balanceHeader">Your Balance: <span className="currentBalance">${roundedAvilableFunds}</span></h2>
             </div>
         </div>
     )
