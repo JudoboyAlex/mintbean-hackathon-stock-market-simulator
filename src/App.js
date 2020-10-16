@@ -1,8 +1,8 @@
 import React,  { useState }  from 'react';
-import Header from './components/Header';
-import Balance from './components/Balance';
-import BuyStocksContainer from './components/BuyStocksContainer';
-import SellStocksContainer from './components/SellStocksContainer';
+import Header from './components/Header/Header';
+import Balance from './components/Balance/Balance';
+import BuyStocksContainer from './components/BuyStocksContainer/BuyStocksContainer';
+import SellStocksContainer from './components/SellStocksContainer/SellStocksContainer';
 import 'normalize.css';
 import './App.css';
 import { makeStyles } from '@material-ui/core/styles';

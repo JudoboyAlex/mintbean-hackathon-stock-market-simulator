@@ -1,0 +1,6 @@
+.header {
+    font-family:'Seymour One', sans-serif;
+    background: -webkit-linear-gradient(#1a1c20, #333);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}

@@ -1,0 +1,10 @@
+.currentBalance {
+    color: #f0a500;
+    font-size: 3rem;
+    font-family: 'Fira Sans Condensed', sans-serif;
+}
+
+.balanceHeader {
+    font-family: 'Fira Sans Condensed', sans-serif;
+    font-size: 2rem;
+}

@@ -1,0 +1,13 @@
+
+ul {
+    display: flex;
+}
+
+li {
+    list-style: none;
+}
+
+.tableHeader {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.5rem;
+}
