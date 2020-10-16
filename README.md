@@ -5,6 +5,8 @@ I used this opportunity to further enhance my React/Redux skill and experiment w
 
 ## Demo
 
+Use the app online at https://mintbean-hackathon-stock-market-simulator.netlify.app/
+
 ![Stock Market Simulator Demo](demo/mintbean-hackathon-stock-market-simulator.gif)
 
 ## Technologies Used
